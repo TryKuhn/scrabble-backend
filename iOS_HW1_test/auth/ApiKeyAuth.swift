@@ -11,7 +11,6 @@ struct APIKeyAuthenticator: Middleware {
             )
         }
         
-        // Пытаемся найти ApiKey в базе данных
         return ApiKey.find(UUID(apiKeyValue), on: request.db)
             .unwrap(or: Abort(.notFound, reason: "Invalid \(apiKeyHeaderName)."))
             .flatMapThrowing { apiKey in
